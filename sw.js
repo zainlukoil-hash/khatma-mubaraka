@@ -16,7 +16,7 @@ self.addEventListener('fetch',e=>{
   if(r.method!=='GET'||r.mode!=='navigate')return;
   e.respondWith((async()=>{
     try{
-      const res=await fetch(r);
+      const res=await fetch(r.url,{cache:'no-cache',credentials:'same-origin'});/* تحقّق دائمًا من أحدث نسخة منشورة بدل ذاكرة المتصفح المؤقتة */
       if(res&&res.ok&&res.type==='basic'){try{const c=await caches.open(CACHE);await c.put('./shell',res.clone())}catch(x){}}
       return res;
     }catch(err){
